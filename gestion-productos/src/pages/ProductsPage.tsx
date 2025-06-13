@@ -9,6 +9,8 @@ import TablePagination from "@mui/material/TablePagination";
 
 import { getAllProducts, deleteProduct } from "../services/firebase";
 import type { Product } from "../types/product";
+import ProductsChart from "../components/Product/ProductsChart";
+
 
 import FiltersBar from "../components/Product/FiltersBar";
 import ProductAccordion from "../components/Product/ProductAccordion";
@@ -178,6 +180,9 @@ const ProductsPage = () => {
       />
 
       <ProductsSummary count={filteredProducts.length} avgPrice={avgPrice} />
+
+      <ProductsChart products={filteredProducts} />
+
 
       <DeleteDialog
         open={Boolean(confirmDeleteId)}
