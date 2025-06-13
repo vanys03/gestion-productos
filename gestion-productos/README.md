@@ -1,54 +1,99 @@
-# React + TypeScript + Vite
+Gestión de Productos
+Aplicación web para la gestión y visualización de productos, construida con enfoque profesional, estética cuidada y funcionalidades completas de filtrado, creación y administración. El sistema está pensado para equipos de ventas, inventario o control de catálogo.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🧑‍💻 Stack Tecnológico
+Framework: React + TypeScript
 
-Currently, two official plugins are available:
+UI Framework: Material UI (MUI)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Backend as a Service (BaaS): Firebase
 
-## Expanding the ESLint configuration
+Firestore (base de datos en tiempo real)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Firebase Authentication
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Testing: Vitest + React Testing Library + User Event
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Herramientas adicionales: Chart.js para visualización de datos
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+🚀 Instalación y ejecución local
+1. Clonar el repositorio
+bash
+git clone https://github.com/tuusuario/gestion-productos.git
+cd gestion-productos
+2. Instalar dependencias
+bash
+npm install
+3. Variables de entorno
+Crea un archivo .env en la raíz del proyecto con las siguientes variables:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+env
+VITE_FIREBASE_API_KEY=AIzaSyBUQCEm20n8TeHpt5QftgPQ0NgXOXBgo0U
+VITE_FIREBASE_AUTH_DOMAIN=gestion-productos-a011b.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=gestion-productos-a011b
+VITE_FIREBASE_STORAGE_BUCKET=gestion-productos-a011b.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=539725094851
+VITE_FIREBASE_APP_ID=1:539725094851:web:fff1618b10a874ae7ea776
+> Estas credenciales se obtienen desde la consola de Firebase.
+
+4. Ejecutar localmente
+bash
+npm run dev
+La aplicación estará disponible en http://localhost:5173
+
+🧪 Ejecución de pruebas
+Ejecutar todas las pruebas una vez:
+bash
+npx vitest run
+Ejecutar pruebas en modo interactivo (watch mode):
+bash
+npx vitest --watch
+Este proyecto incluye pruebas para:
+
+Componentes como FiltersBar, probando inputs y eventos visuales
+
+Funciones de lógica como filtrado, validación y estadísticas
+
+Interacciones simuladas con Firebase (mock de addDoc y collection)
+
+🤖 Uso del asistente de IA
+Durante el desarrollo utilicé un asistente de inteligencia artificial para:
+
+Definir la estructura de las pruebas unitarias e integración en React y Firebase
+
+Construir pruebas funcionales para componentes complejos con MUI, simulando interacciones con combobox, TextField y botones
+
+Simular correctamente Firebase en entornos de test con Vitest, mockeando funciones como addDoc, collection y serverTimestamp
+
+Corregir errores de tipado en TypeScript relacionados con propiedades de entrada
+
+Redactar este README.md, con un tono profesional y claridad técnica
+
+Ejemplo: en el componente FiltersBar, la IA ayudó a evitar errores de simulación en el Select de MUI reemplazando fireEvent.change() con interacción realista usando userEvent.click() y screen.findByText().
+
+🗃️ Configuración del BaaS (Firebase)
+Colección principal: products
+Cada documento de producto tiene la siguiente estructura:
+
+ts
+interface Product {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  rating: number;
+  stock: number;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+}
+Reglas de seguridad de Firestore
+js
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /products/{productId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+Esto asegura que solo usuarios autenticados pueden leer o modificar productos.
