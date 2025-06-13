@@ -12,10 +12,22 @@ type Props = {
   productToEdit: Product | null;
   onSaved: () => void;
   categories: string[];
+  expanded: boolean;
+  onExpandChange: (open: boolean) => void;
 };
 
-const ProductAccordion = ({ productToEdit, onSaved, categories }: Props) => (
-  <Accordion sx={{ mb: 3 }} defaultExpanded={false}>
+const ProductAccordion = ({
+  productToEdit,
+  onSaved,
+  categories,
+  expanded,
+  onExpandChange,
+}: Props) => (
+  <Accordion
+    sx={{ mb: 3 }}
+    expanded={expanded}
+    onChange={(_, newExpanded) => onExpandChange(newExpanded)}
+  >
     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
       <Typography>{productToEdit ? "Editar producto" : "Agregar producto"}</Typography>
     </AccordionSummary>
@@ -28,5 +40,6 @@ const ProductAccordion = ({ productToEdit, onSaved, categories }: Props) => (
     </AccordionDetails>
   </Accordion>
 );
+
 
 export default ProductAccordion;
