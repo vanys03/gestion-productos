@@ -5,7 +5,6 @@ import {
   TableCell,
   TableBody,
   TableContainer,
-  Paper,
   Box,
   TableSortLabel,
   IconButton,
@@ -33,7 +32,7 @@ const columns: { id: keyof Product | "actions"; label: string }[] = [
 ];
 
 const ProductTable = ({ products, order, orderBy, onSort, onEdit, onDelete }: Props) => (
-  <TableContainer component={Paper} sx={{ minWidth: "1000px", width: "100%" }}>
+  <TableContainer sx={{ maxHeight: 440, overflowX: "auto"}}>
     <Table>
       <TableHead>
         <TableRow>

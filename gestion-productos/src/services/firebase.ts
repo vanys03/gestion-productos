@@ -1,6 +1,5 @@
-
 // src/services/firebase.ts
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import {
   getFirestore,
   collection,
@@ -10,11 +9,10 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
-  serverTimestamp
+  serverTimestamp,
 } from "firebase/firestore";
-
+import { getAuth } from "firebase/auth";
 import type { Product } from "../types/product";
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyBUQCEm20n8TeHpt5QftgPQ0NgXOXBgo0U",
@@ -26,12 +24,15 @@ const firebaseConfig = {
   measurementId: "G-L7ECGWFE0E"
 };
 
-const app = initializeApp(firebaseConfig);
+// Previene duplicado de app
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-export { db };
+export { db, auth }; // ← ya puedes importar auth desde aquí
 
-// 🔹 Obtener todos los productos
+// 🔹 Funciones de productos (como ya las tenías)
 export const getAllProducts = async (): Promise<Product[]> => {
   const snapshot = await getDocs(collection(db, "products"));
   return snapshot.docs.map((doc) => ({
@@ -39,6 +40,9 @@ export const getAllProducts = async (): Promise<Product[]> => {
     ...(doc.data() as Omit<Product, "id">)
   }));
 };
+
+// ... (y el resto igual)
+
 
 // 🔹 Obtener un producto por ID
 export const getProductById = async (id: string): Promise<Product | null> => {
