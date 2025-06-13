@@ -19,7 +19,7 @@ Herramientas adicionales: Chart.js para visualización de datos
 🚀 Instalación y ejecución local
 1. Clonar el repositorio
 bash
-git clone https://github.com/tuusuario/gestion-productos.git
+git clone https://github.com/vanys03/gestion-productos.git
 cd gestion-productos
 2. Instalar dependencias
 bash
@@ -39,7 +39,7 @@ VITE_FIREBASE_APP_ID=1:539725094851:web:fff1618b10a874ae7ea776
 4. Ejecutar localmente
 bash
 npm run dev
-La aplicación estará disponible en http://localhost:5173
+La aplicación estará disponible en  https://gestion-productos-a011b.web.app
 
 🧪 Ejecución de pruebas
 Ejecutar todas las pruebas una vez:
