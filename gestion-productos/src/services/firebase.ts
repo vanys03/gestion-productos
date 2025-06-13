@@ -41,8 +41,6 @@ export const getAllProducts = async (): Promise<Product[]> => {
   }));
 };
 
-// ... (y el resto igual)
-
 
 // 🔹 Obtener un producto por ID
 export const getProductById = async (id: string): Promise<Product | null> => {
